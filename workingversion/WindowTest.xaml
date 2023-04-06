@@ -1,0 +1,361 @@
+﻿<Window x:Class="workingversion.WindowTest"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:workingversion"
+        mc:Ignorable="d"
+        Title="Приложение" Height="900" Width="1440" WindowStyle="None" WindowStartupLocation="CenterScreen" ResizeMode="CanResize">
+    <Window.Background>
+
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FFDA8FFF" Offset="1"/>
+            <GradientStop Color="#FFFDBB77" Offset="0"/>
+            <GradientStop Color="#FFA9FFC6" Offset="0.36"/>
+            <GradientStop Color="#FF7AE4FF" Offset="0.69"/>
+        </LinearGradientBrush>
+
+    </Window.Background>
+
+    <Window.Resources>
+
+        <Style x:Key="ComboboxButton" TargetType="Button">
+
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Background" Value="#FFFFE6C1"/>
+            <Setter Property="Foreground" Value="#FF373737"/>
+            <Setter Property="Template">
+
+
+                <Setter.Value>
+
+                    <ControlTemplate TargetType="Button">
+
+                        <Border Name="border" BorderThickness="4" BorderBrush="White" Background="{TemplateBinding Background}">
+
+                            <ContentPresenter Margin="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center"></ContentPresenter>
+
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+
+                            <EventTrigger RoutedEvent="PreviewMouseDown">
+
+                                <BeginStoryboard>
+
+                                    <Storyboard>
+
+                                        <ThicknessAnimation Storyboard.TargetProperty="Margin" Duration="0:0:0.100" To="5,5,5,5"/>
+
+                                    </Storyboard>
+
+                                </BeginStoryboard>
+
+                            </EventTrigger>
+
+                            <EventTrigger RoutedEvent="PreviewMouseUp">
+
+                                <BeginStoryboard>
+
+                                    <Storyboard>
+
+                                        <ThicknessAnimation Storyboard.TargetProperty="Margin" Duration="0:0:0.100" To="0"/>
+
+                                    </Storyboard>
+
+                                </BeginStoryboard>
+
+                            </EventTrigger>
+
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+
+                </Setter.Value>
+
+            </Setter>
+
+        </Style>
+
+        <Style x:Key="Tb" TargetType="TextBox">
+
+            <Setter Property="Background" Value="#FFFFE6C1"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="Foreground" Value="#FF373737"/>
+            <Setter Property="BorderBrush" Value="#FF8CF7AB"/>
+            <Setter Property="Padding" Value="10,0,0,0"/>
+
+
+            <Setter Property="Template">
+
+                <Setter.Value>
+
+                    <ControlTemplate TargetType="TextBox">
+
+                        <Grid x:Name="Root" Height="{TemplateBinding Height}" Width="{TemplateBinding Width}" SnapsToDevicePixels="True">
+
+                            <Border x:Name="Background" BorderThickness="2" CornerRadius="2" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"/>
+
+                            <ScrollViewer x:Name="PART_ContentHost" BorderThickness="0" Padding="{TemplateBinding Padding}" IsTabStop="False" Background="{x:Null}" TextElement.Foreground="{TemplateBinding Foreground}"/>
+
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsMouseOver" Value="True">
+
+                                <Setter Property="Background" Value="#FFFDD7AE"/>
+                                <Setter Property="BorderBrush" Value="#FFB0B8FF"/>
+
+                            </Trigger>
+
+                            <Trigger Property="IsFocused" Value="True">
+
+                                <Setter Property="BorderBrush" Value="White"/>
+                                <Setter Property="Background" Value="#FFFDD7AE"/>
+
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+
+                </Setter.Value>
+
+            </Setter>
+
+        </Style>
+
+        <ControlTemplate x:Key="Regr" TargetType="Button">
+            <Grid Name="Reg" Height="50" Width="320" Margin="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                <Border>
+                    <Grid>
+                        <Label Content="{TemplateBinding Content}" Background="Transparent" FontSize="28" VerticalAlignment="Center">
+                            <Label.Style>
+                                <Style TargetType="Label">
+                                    <Setter Property="Foreground" Value="#FF373737"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=IsMouseOver, ElementName=Reg}" Value="true">
+                                            <Setter Property="Foreground" Value="#FF8CF7AB"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Button}}, Path = IsPressed}" Value="true">
+                                            <Setter Property="Foreground" Value="#FFFFE6C1"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Label.Style>
+                        </Label>
+                    </Grid>
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Button}}, Path = IsPressed}" Value="true">
+                                    <Setter Property="Margin" Value="0,2,0,0"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                </Border>
+            </Grid>
+        </ControlTemplate>
+
+    </Window.Resources>
+
+
+    <Grid>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="480"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="110"/>
+            <RowDefinition Height="380"/>
+            <RowDefinition Height="380"/>
+        </Grid.RowDefinitions>
+
+        <Grid Name="brow" Grid.Column="1" Grid.Row="0" MouseDown="ToolBar_MouseDown">
+            <Polygon VerticalAlignment="top" HorizontalAlignment="Center" Fill="White" Opacity="0.4" Points="0,10,0,0,460,0,460,10" Width="460"></Polygon>
+        </Grid>
+
+        <Grid Name="ToolBar" Grid.Column="3"  Background="Transparent" Grid.Row="0" MouseDown="ToolBar_MouseDown">
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+
+                <Image Name="MinButton" Margin="5,5,0,5" Height="20" Width="20" MouseDown="MinButton_MouseDown">
+
+                    <Image.Style>
+                        <Style TargetType="{x:Type Image}">
+                            <Setter Property="Source" Value="\Resources\turnoff.jpg"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsMouseOver, ElementName=MinButton}" Value="True">
+                                    <Setter Property="Source" Value="\Resources\turnon.jpg"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Image.Style>
+
+                </Image>
+
+                <Image Name="MaxButton" Margin="5,5,0,5" Height="20" Width="20" MouseDown="MaxButton_MouseDown">
+
+                    <Image.Style>
+                        <Style TargetType="{x:Type Image}">
+                            <Setter Property="Source" Value="\Resources\maxoff.jpg"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsMouseOver, ElementName=MaxButton}" Value="True">
+                                    <Setter Property="Source" Value="\Resources\maxon.jpg"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+
+                    </Image.Style>
+
+                </Image>
+
+                <Image Name="NormalButton" Margin="5,5,0,5" Height="20" Width="20" MouseDown="NormalButton_MouseDown">
+
+                    <Image.Style>
+                        <Style TargetType="{x:Type Image}">
+                            <Setter Property="Source" Value="\Resources\normaloff.jpg"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsMouseOver, ElementName=NormalButton}" Value="True">
+                                    <Setter Property="Source" Value="\Resources\normalon.jpg"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Image.Style>
+
+                </Image>
+
+                <Image Name="ExitButton" Margin="5,5,5,5" Height="20" Width="20" MouseDown="ExitButton_MouseDown">
+
+                    <Image.Style>
+                        <Style TargetType="{x:Type Image}">
+                            <Setter Property="Source" Value="\Resources\closeoff.jpg"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsMouseOver, ElementName=ExitButton}" Value="True">
+                                    <Setter Property="Source" Value="\Resources\closeon.jpg"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Image.Style>
+
+                </Image>
+
+
+            </StackPanel>
+
+        </Grid>
+
+        <Grid Name="LogoContainer" Background="Transparent" Grid.Column="1" Grid.Row="1" MouseDown="LogoContainer_MouseDown">
+
+            <Label Content="Glossary" HorizontalAlignment="Center" VerticalAlignment="Top" AutomationProperties.IsOffscreenBehavior="Onscreen" FontFamily="Times New Roman" FontWeight="Bold" FontSize="72" FontStyle="Normal" Visibility="Visible" Foreground="#FF373737"/>
+            <Label Content="passing the test" HorizontalAlignment="Center" Margin="0,65,0,0" VerticalAlignment="Top" FontFamily="Times New Roman" FontSize="20" FontWeight="Bold" Foreground="#FF373737"/>
+
+        </Grid>
+
+        <Grid Name="border0" Grid.Row="0" MouseDown="ToolBar_MouseDown">
+            <Border BorderThickness="0,0,0,0" BorderBrush="White" Background="Transparent" Margin="0,0,0,0"/>
+        </Grid>
+        <Canvas HorizontalAlignment="Center" Height="269" Margin="10,109,0,0" Grid.Row="1" VerticalAlignment="Center" Width="421" Grid.RowSpan="2">
+            <TextBlock Foreground="#FF373737" FontFamily="Time New Roman" FontWeight="DemiBold" Canvas.Left="119" TextWrapping="Wrap" Text="Гроза" Canvas.Top="10" FontSize="48"/>
+            <RadioButton Foreground="#FF373737" FontFamily="Time New Roman" FontWeight="DemiBold" x:Name="rb1" GroupName="1" Content="Thunderstorm" HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Top" Height="67" Canvas.Left="10" Canvas.Top="79" Width="271" FontSize="36"/>
+            <RadioButton Foreground="#FF373737" FontFamily="Time New Roman" FontWeight="DemiBold" x:Name="rb2" GroupName="1" Content="Lightning" HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Top" Canvas.Left="10" Canvas.Top="146" FontSize="36"/>
+            <RadioButton Foreground="#FF373737" FontFamily="Time New Roman" FontWeight="DemiBold" x:Name="rb3" GroupName="1" Content="Rain" HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Top" Canvas.Left="10" Canvas.Top="212" FontSize="36"/>
+        </Canvas>
+        <Canvas HorizontalAlignment="Center" Height="269" Margin="10,0,0,0" Grid.Row="3" VerticalAlignment="Top" Width="421">
+            <TextBlock Foreground="#FF373737" FontFamily="Time New Roman" FontWeight="DemiBold" Canvas.Left="119" TextWrapping="Wrap" Text="Ливень" Canvas.Top="10" FontSize="48"/>
+            <RadioButton Foreground="#FF373737" FontFamily="Time New Roman" FontWeight="DemiBold" x:Name="rb4" GroupName="2" Content="Hard Rain" HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Top" Height="67" Canvas.Left="10" Canvas.Top="79" Width="271" FontSize="36"/>
+            <RadioButton Foreground="#FF373737" FontFamily="Time New Roman" FontWeight="DemiBold" x:Name="rb5" GroupName="2" Content="Thunder" HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Top" Canvas.Left="10" Canvas.Top="146" FontSize="36"/>
+            <RadioButton Foreground="#FF373737" FontFamily="Time New Roman" FontWeight="DemiBold" x:Name="rb6" GroupName="2" Content="Heavy Rain" HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Top" Canvas.Top="212" FontSize="36"/>
+        </Canvas>
+        <Canvas HorizontalAlignment="Center" Height="268" Grid.Row="2" VerticalAlignment="Center" Width="421" Grid.Column="1">
+            <TextBlock Foreground="#FF373737" FontFamily="Time New Roman" FontWeight="DemiBold" Canvas.Left="119" TextWrapping="Wrap" Text="Облако" Canvas.Top="10" FontSize="48"/>
+            <RadioButton Foreground="#FF373737" FontFamily="Time New Roman" FontWeight="DemiBold" x:Name="rb7" GroupName="3" Content="Sky" HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Top" Height="67" Canvas.Left="10" Canvas.Top="79" Width="271" FontSize="36"/>
+            <RadioButton Foreground="#FF373737" FontFamily="Time New Roman" FontWeight="DemiBold" x:Name="rb8" GroupName="3" Content="Cloud" HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Top" Canvas.Left="10" Canvas.Top="146" FontSize="36"/>
+            <RadioButton Foreground="#FF373737" FontFamily="Time New Roman" FontWeight="DemiBold" x:Name="rb9" GroupName="3" Content="Wind" HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Top" Canvas.Left="10" Canvas.Top="221" FontSize="36"/>
+        </Canvas>
+        <Canvas HorizontalAlignment="Center" Height="268" Margin="0,1,0,0" Grid.Row="3" VerticalAlignment="Top" Width="421" Grid.Column="1">
+            <TextBlock Foreground="#FF373737" FontFamily="Time New Roman" FontWeight="DemiBold" Canvas.Left="119" TextWrapping="Wrap" Text="Ветер" Canvas.Top="10" FontSize="48"/>
+            <RadioButton Foreground="#FF373737" FontFamily="Time New Roman" FontWeight="DemiBold" x:Name="rb10" GroupName="4" Content="Wood" HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Top" Height="67" Canvas.Left="10" Canvas.Top="79" Width="271" FontSize="36"/>
+            <RadioButton Foreground="#FF373737" FontFamily="Time New Roman" FontWeight="DemiBold" x:Name="rb11" GroupName="4" Content="Land" HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Top" Canvas.Left="10" Canvas.Top="146" FontSize="36"/>
+            <RadioButton Foreground="#FF373737" FontFamily="Time New Roman" FontWeight="DemiBold" x:Name="rb12" GroupName="4" Content="Wind" HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Top" Canvas.Left="10" Canvas.Top="221" FontSize="36"/>
+        </Canvas>
+        <Canvas HorizontalAlignment="Center" Height="268" Margin="10,0,0,0" Grid.Row="2" VerticalAlignment="Center" Width="421" Grid.Column="2">
+            <TextBlock Foreground="#FF373737" FontFamily="Time New Roman" FontWeight="DemiBold" Canvas.Left="119" TextWrapping="Wrap" Text="Оползень" Canvas.Top="10" FontSize="48"/>
+            <RadioButton Foreground="#FF373737" FontFamily="Time New Roman" FontWeight="DemiBold" x:Name="rb13" GroupName="5" Content="Landslide" HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Top" Height="67" Canvas.Left="10" Canvas.Top="79" Width="271" FontSize="36"/>
+            <RadioButton Foreground="#FF373737" FontFamily="Time New Roman" FontWeight="DemiBold" x:Name="rb14" GroupName="5" Content="Earthquake" HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Top" Canvas.Left="10" Canvas.Top="146" FontSize="36"/>
+            <RadioButton Foreground="#FF373737" FontFamily="Time New Roman" FontWeight="DemiBold" x:Name="rb15" GroupName="5" Content="Blizzard" HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Top" Canvas.Left="10" Canvas.Top="221" FontSize="36"/>
+        </Canvas>
+
+        <Border Grid.Row="3" Grid.Column="2" Height="50" Width="220" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" CornerRadius="1" BorderThickness="4" Background="#FFFF8181">
+            <Border.Style>
+
+                <Style TargetType="{x:Type Border}">
+
+                    <Setter Property="BorderBrush" Value="#FF8CF7AB"/>
+
+                    <Style.Triggers>
+
+                        <Trigger Property="IsMouseOver" Value="True">
+
+                            <Setter Property="BorderBrush" Value="#FF99A3FB"/>
+
+                        </Trigger>
+
+                        <EventTrigger RoutedEvent="PreviewMouseDown">
+
+                            <BeginStoryboard>
+
+                                <Storyboard>
+
+                                    <ColorAnimation Storyboard.TargetProperty="BorderBrush.Color" Duration="0:0:0.100" To="White"/>
+
+                                </Storyboard>
+
+                            </BeginStoryboard>
+
+                        </EventTrigger>
+
+                        <EventTrigger RoutedEvent="PreviewMouseUp">
+
+                            <BeginStoryboard>
+
+                                <Storyboard>
+
+                                    <ColorAnimation Storyboard.TargetProperty="BorderBrush.Color" Duration="0:0:0.100" To="#FFB0B8FF"/>
+
+                                </Storyboard>
+
+                            </BeginStoryboard>
+
+                        </EventTrigger>
+
+                    </Style.Triggers>
+
+                </Style>
+
+            </Border.Style>
+
+            <Button Style="{StaticResource ComboboxButton}" Content="Закончить тест" Grid.Column="2" HorizontalAlignment="Center" Margin="0,0,0,0" Grid.Row="3" VerticalAlignment="Center" Width="220" Height="50" FontSize="24" FontWeight="DemiBold" FontFamily="Time New Roman" Click="Button_Click"></Button>
+        </Border>
+
+        <TextBox x:Name="Result" Grid.Column="2" HorizontalAlignment="Center" Height="50" Margin="0,245,0,0" Grid.Row="3" TextWrapping="Wrap"  VerticalAlignment="Top" Width="200" FontFamily="Time New Roman" FontSize="24" FontWeight="DemiBold" Foreground="#FF373737" Background="Transparent"/>
+
+        <Grid Grid.Row="3" Grid.Column="1" Name="Registr">
+            <Border  Background="Transparent" Margin="0,300,0,0">
+                <StackPanel>
+                    <Button FontFamily="Time New Roman" FontWeight="DemiBold" Template="{StaticResource ResourceKey=Regr}" Content="Вернуться в категории" Click="Back_Categories"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+
+
+    </Grid>
+
+</Window>
